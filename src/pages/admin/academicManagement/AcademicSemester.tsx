@@ -2,7 +2,7 @@ import { useGetAllSemestersQuery } from "@/redux/features/academicSemester/acade
 
 export default function AcademicSemester() {
 
-    const { data, isLoading } = useGetAllSemestersQuery(undefined);
+    const { data } = useGetAllSemestersQuery(undefined);
     console.log(data);
     return (
         <div>
