@@ -4,11 +4,11 @@ import { sidebarItemGenerator } from "../../utils/sidebarItemsGenerator";
 import { adminPaths } from "../../routes/admin.routes";
 import { facultyPaths } from "../../routes/faculty.routes";
 import { studentPaths } from "../../routes/student.routes";
-import { TRole } from "../../types";
+import { useAppSelector } from "@/redux/hook";
+import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 
 export default function Sidebar() {
-  const role: TRole = "admin";
-
+  const user = useAppSelector(selectCurrentUser);
   const userRole = {
     ADMIN: "admin",
     FACULTY: "faculty",
@@ -16,7 +16,7 @@ export default function Sidebar() {
   };
 
   let sidebarItems;
-  switch (role) {
+  switch (user!.role) {
     case userRole.ADMIN:
       sidebarItems = sidebarItemGenerator(adminPaths, userRole.ADMIN);
       break;
@@ -33,12 +33,12 @@ export default function Sidebar() {
     <Sider
       breakpoint="lg"
       collapsedWidth="0"
-    //   onBreakpoint={(broken) => {
-    //     console.log(broken);
-    //   }}
-    //   onCollapse={(collapsed, type) => {
-    //     console.log(collapsed, type);
-    //   }}
+      //   onBreakpoint={(broken) => {
+      //     console.log(broken);
+      //   }}
+      //   onCollapse={(collapsed, type) => {
+      //     console.log(collapsed, type);
+      //   }}
     >
       <div
         style={{
