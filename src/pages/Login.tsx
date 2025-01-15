@@ -20,21 +20,14 @@ import PHInput from "@/components/form/PHInput";
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  // const { register, handleSubmit } = useForm<TData>({
-  //   defaultValues: {
-  //     userId: "A-0001",
-  //     password: "admin123",
-  //   },
-  // });
   const [login] = useLoginMutation();
   const onSubmit = async (data: FieldValues) => {
-    console.log(data);
     const toastId = toast.loading("Logging in...");
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       const userInfo = {
-        id: data.userId,
+        id: data.id,
         password: data.password,
       };
       const res = await login(userInfo).unwrap();
@@ -58,12 +51,8 @@ export default function Login() {
           </CardHeader>
           <PHForm onSubmit={onSubmit}>
             <CardContent className="space-y-2">
-              <div className="space-y-1">
-                <PHInput name="id" type="text" label="ID" />
-              </div>
-              <div className="space-y-1">
-                <PHInput name="password" type="password" label="Password" />
-              </div>
+              <PHInput name="id" type="text" label="ID" />
+              <PHInput name="password" type="password" label="Password" />
             </CardContent>
             <CardFooter>
               <Button htmlType="submit" className="mx-auto">
