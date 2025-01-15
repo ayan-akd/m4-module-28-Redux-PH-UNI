@@ -21,6 +21,10 @@ export default function Login() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [login] = useLoginMutation();
+  const defaultValues = {
+    id: "A-0001",
+    password: "admin123",
+  };
   const onSubmit = async (data: FieldValues) => {
     const toastId = toast.loading("Logging in...");
 
@@ -49,7 +53,7 @@ export default function Login() {
               Login to your account
             </CardDescription>
           </CardHeader>
-          <PHForm onSubmit={onSubmit}>
+          <PHForm onSubmit={onSubmit} defaultValues={defaultValues}>
             <CardContent className="space-y-2">
               <PHInput name="id" type="text" label="ID" />
               <PHInput name="password" type="password" label="Password" />
