@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues } from "react-hook-form";
 import { useLoginMutation } from "../redux/features/auth/authApi";
 import { useAppDispatch } from "../redux/hook";
 import { setUser, TUser } from "../redux/features/auth/authSlice";
@@ -12,26 +12,23 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import PHForm from "@/components/form/PHForm";
+import PHInput from "@/components/form/PHInput";
 
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { register, handleSubmit } = useForm<TData>({
-    defaultValues: {
-      userId: "A-0001",
-      password: "admin123",
-    },
-  });
+  // const { register, handleSubmit } = useForm<TData>({
+  //   defaultValues: {
+  //     userId: "A-0001",
+  //     password: "admin123",
+  //   },
+  // });
   const [login] = useLoginMutation();
-  type TData = {
-    userId: string;
-    password: string;
-  };
   const onSubmit = async (data: FieldValues) => {
+    console.log(data);
     const toastId = toast.loading("Logging in...");
 
     try {
@@ -59,15 +56,13 @@ export default function Login() {
               Login to your account
             </CardDescription>
           </CardHeader>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <PHForm onSubmit={onSubmit}>
             <CardContent className="space-y-2">
               <div className="space-y-1">
-                <Label htmlFor="id">ID</Label>
-                <Input id="id" type="text" {...register("userId")} />
+                <PHInput name="id" type="text" label="ID" />
               </div>
               <div className="space-y-1">
-                <Label htmlFor="password">Password</Label>
-                <Input id="password" type="text" {...register("password")} />
+                <PHInput name="password" type="password" label="Password" />
               </div>
             </CardContent>
             <CardFooter>
@@ -75,7 +70,7 @@ export default function Login() {
                 Login
               </Button>
             </CardFooter>
-          </form>
+          </PHForm>
         </Card>
       </div>
     </div>
